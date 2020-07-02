@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "788168745935",
+    "firebase_url": "https://gofixit-282105.firebaseio.com",
+    "project_id": "gofixit-282105",
+    "storage_bucket": "gofixit-282105.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788168745935:android:00d399a70fcbc7da60a8ba",
+        "android_client_info": {
+          "package_name": "com.gofixitapp.gofixit_demo_one"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788168745935-5eiq5a0nstenjsf9do1hf2kj582bihi5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC73Xsc7wK3EGE2AkW2mGBpxBVHlhxH2hE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788168745935-5eiq5a0nstenjsf9do1hf2kj582bihi5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
