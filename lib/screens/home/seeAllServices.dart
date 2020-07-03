@@ -14,20 +14,30 @@ class AllServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.keyboard_backspace, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text("All Services", style: TextStyle(fontSize:25.0,color: Colors.black)),
+        elevation: 0.0,
+        // backgroundColor:Color(0xFF263238),
+        backgroundColor: Color(0xFFf3f4f4),
+      ),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(16.0),
           child: ListView(
             children: [
-              Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "All Services",
-                      style: TextStyle(fontSize: 50.0),
-                    ),
-                  )),
+              // Align(
+              //     alignment: Alignment.topLeft,
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: Text(
+              //         "All Services",
+              //         style: TextStyle(fontSize: 50.0),
+              //       ),
+              //     )),
               Service(title: titles[0],),
               Service(title: titles[1],),
               Service(title: titles[2],),

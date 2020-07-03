@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gofixit_demo_one/model/FixerModel.dart';
+import 'package:gofixit_demo_one/model/ServiceOrderModel.dart';
 import 'package:gofixit_demo_one/model/UserModel.dart';
 
 class DatabaseService {
@@ -20,17 +22,18 @@ class DatabaseService {
     dynamic imageUrl,
   ) async {
     return await serviceOrder.document(uid).setData({
-      'serviceOrdered':serviceOrdered,
-      'address':address,
-      'description':description,
-      'imageUrl':imageUrl
+      'serviceOrdered': serviceOrdered,
+      'address': address,
+      'description': description,
+      'imageUrl': imageUrl
     });
   }
 
   Future updateUserDetails(
-      String username, String phone, String gender, int strength) async {
+      String username,String email,String phone, String gender, int strength) async {
     return await userData.document(uid).setData({
       'username': username,
+      'email':email,
       'phone': phone,
       'gender': gender,
       'strength': strength
@@ -41,16 +44,30 @@ class DatabaseService {
     return snapshot.documents.map((doc) {
       return FixerModel(
           username: doc.data['username'] ?? '',
+          email:doc.data['email'] ?? '',
           phone: doc.data['phone'] ?? '0',
           gender: doc.data['gender'] ?? '',
           strength: doc.data['strength']);
     }).toList();
   }
 
+  List<ServiceOrderModel> historyList(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      return ServiceOrderModel(
+        serviceOrdered:doc.data['serviceOrdered'],
+        imageUrl:doc.data['imageUrl'],
+        description:doc.data['description'],
+        address:doc.data['address']
+      );
+    }).toList();
+  }
+
+
   UserDataModel _currentUser(DocumentSnapshot snapshot) {
     return UserDataModel(
         uid: uid,
         username: snapshot.data['username'],
+        email:snapshot.data['email'],
         phone: snapshot.data['phone'],
         gender: snapshot.data['gender'],
         strength: snapshot.data['strength']);
@@ -58,6 +75,10 @@ class DatabaseService {
 
   Stream<List<FixerModel>> get userDetails {
     return userData.snapshots().map(_fixersList);
+  }
+
+  Stream<List<ServiceOrderModel>> get history{
+    return serviceOrder.snapshots().map(historyList);
   }
 
   // stream to get current user details

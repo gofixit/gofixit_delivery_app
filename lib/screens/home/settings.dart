@@ -59,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     TextSec(label:"username",value:currentUser.username),
                     TextSec(label:"phone",value:currentUser.phone),
-                    TextSec(label:"gender",value:currentUser.gender),
+                    TextSec(label:"email",value:currentUser.email),
                   ],
                 )),
           ),
@@ -83,7 +83,7 @@ class TextSec extends StatelessWidget {
           Text(label),
           Text(value,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
               )),
           Br(),
         ],

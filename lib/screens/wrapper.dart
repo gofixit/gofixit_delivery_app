@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofixit_demo_one/model/UserModel.dart';
 import 'package:gofixit_demo_one/screens/authenticate/authenticate.dart';
 import 'package:gofixit_demo_one/screens/home/home.dart';
+import 'package:gofixit_demo_one/screens/home/mapLine.dart';
 import 'package:gofixit_demo_one/screens/home/routeLoader.dart';
 import 'package:gofixit_demo_one/screens/home/seeAllServices.dart';
 import 'package:gofixit_demo_one/screens/home/testPage.dart';
@@ -18,6 +19,7 @@ class Wrapper extends StatelessWidget {
       return Authenticate();
     } else {
       return Home();
+      // return MapSearch();
       // return MapScreen();
       // return RouteLoader();
       // return TestPage();

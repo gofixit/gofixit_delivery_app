@@ -14,15 +14,7 @@ class _FixItListState extends State<FixItList> {
   @override
   Widget build(BuildContext context) {
     final usersDetail = Provider.of<List<FixerModel>>(context);
-    // usersDetail.forEach((detail) {
-    // print(detail.username);
-    // print(detail.phone);
-    // print(detail.gender);
-    // print(detail.strength);
-    // print('New user');
-
-    // });
-    // print(usersDetail.length);
+    
     return ListView.builder(
         itemCount: usersDetail.length,
         itemBuilder: (context, index) {

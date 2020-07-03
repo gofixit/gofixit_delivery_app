@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gofixit_demo_one/model/FixerModel.dart';
 import 'package:gofixit_demo_one/model/UserModel.dart';
-// import 'package:gofixit_demo_one/resusable_components/listing.dart';
+import 'package:gofixit_demo_one/resusable_components/historyTiles.dart';
 import 'package:gofixit_demo_one/screens/home/addCard.dart';
 import 'package:gofixit_demo_one/screens/home/history.dart';
 import 'package:gofixit_demo_one/screens/home/settings.dart';
+import 'package:gofixit_demo_one/screens/home/testPage.dart';
 import 'package:gofixit_demo_one/screens/wrapper.dart';
 import 'package:gofixit_demo_one/services/auth.dart';
 import 'package:gofixit_demo_one/services/database.dart';
@@ -204,7 +203,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     title: Text('Histroy'),
                     onTap: () {
                       // Update the state of the app.
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>HistoryScreen() ));
+                      // Navigator.push(context,MaterialPageRoute(builder: (context)=>HistoryList() ));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TestPage() ));
+
                       // ...
                     },
                   ),

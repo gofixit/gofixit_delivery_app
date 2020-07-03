@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gofixit_demo_one/screens/home/serviceRequestSuccess.dart';
 import 'package:gofixit_demo_one/services/database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -8,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:gofixit_demo_one/model/UserModel.dart';
+
 class RequestService extends StatefulWidget {
   final String service;
 
@@ -22,7 +24,7 @@ class _RequestServiceState extends State<RequestService> {
   final _formKey = GlobalKey<FormState>();
   String serviceOrdered = '';
   String address = '';
-  dynamic imageUrl ;
+  dynamic imageUrl;
   String description = '';
   String email = '';
   File imagefile;
@@ -126,7 +128,7 @@ class _RequestServiceState extends State<RequestService> {
 
   @override
   Widget build(BuildContext context) {
-  final user = Provider.of<UserModel>(context);
+    final user = Provider.of<UserModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -226,13 +228,10 @@ class _RequestServiceState extends State<RequestService> {
                             onTap: () async {
                               try {
                                 if (_formKey.currentState.validate()) {
-                                  // dynamic result =
-                                  //     await DatabaseService(uid:user.userId).updateUserDetails(
-                                  //       service,
-                                  //       address,
-                                  //       description,
-                                  //       imageUrl
-                                  //     );
+                                  dynamic result =
+                                      await DatabaseService(uid: user.userId)
+                                          .saveServiceOrders(service, address,
+                                              description, imageUrl);
                                   if (imagefile == null) {
                                     Fluttertoast.showToast(
                                         msg: 'Please Select an image',
@@ -242,6 +241,16 @@ class _RequestServiceState extends State<RequestService> {
                                   } else {
                                     upload();
                                     _uploadStatusPanel();
+                                    await Future.delayed(
+                                        Duration(seconds: 5), () {
+                                      // deleayed code here
+                                      print('delayed execution');
+                                    });
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ServiceReqSuccess()));
                                   }
                                 }
                               } catch (e) {
@@ -316,6 +325,7 @@ class _SettingsFormState extends State<SettingsForm> {
             "Please wait...",
             style: TextStyle(fontSize: 20.0),
           ),
+          SizedBox(width:10.0,),
           SpinKitCircle(
             color: Colors.orange,
             size: 30,

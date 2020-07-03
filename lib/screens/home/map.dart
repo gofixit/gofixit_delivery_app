@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -9,7 +10,10 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  
+  bool _loading = false;
+  bool _confirm = false;
+  // bool ;
+
   Completer<GoogleMapController> _controller = Completer();
 
   static const LatLng _center = const LatLng(45.521563, -122.677433);
@@ -90,11 +94,11 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  _searchNavigate() {
-    // Geolocator().placemarFromAddress(searchAddr).then((result){
-    //   mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition))
-    // });
-  }
+  // _searchNavigate() {
+  //   Geolocator().placemarFromAddress(searchAddr).then((result){
+  //     mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition))
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +131,7 @@ class _MapScreenState extends State<MapScreen> {
                       horizontal: 16.0,
                     ),
                     decoration: BoxDecoration(
-                      // color: Colors.grey[50],
+                      // color: _loading?Colors.grey[50]:Colors,
                       // color: Colors.blue,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -135,34 +139,118 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                     ),
                     height: MediaQuery.of(context).copyWith().size.height,
-                    child: ListView(
-                      // mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        searchTextField(_onTyped(), "pick up"),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        searchTextField(_onTyped(), "delivery"),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        TextArea(
-                          placeholder: "Description",
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        ElevatedButton(
-                          label: "Request Delivery",
-                        ),
-                        SizedBox(
-                          height: 60.0,
-                        ),
-                      ],
-                    ),
+                    child: _confirm
+                        ? Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                                onTap: () async {
+                                  
+                                },
+                                child: Container(
+                                  child: Center(
+                                      child: _loading
+                                          ? Container(
+                                              child: SpinKitRing(
+                                                color: Colors.white,
+                                                size: 30.0,
+                                              ),
+                                            )
+                                          : Text(
+                                              "Confirm Request ",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20.0),
+                                            )),
+                                  height: 55.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.redAccent,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 7,
+                                        blurRadius: 9,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                        : ListView(
+                            // mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              searchTextField(_onTyped(), "pick up"),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              searchTextField(_onTyped(), "delivery"),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              TextArea(
+                                placeholder: "Description",
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  setState(() {
+                                    _loading = true;
+                                  });
+                                  await Future.delayed(Duration(seconds: 5),
+                                      () {
+                                    // deleayed code here
+                                    print('delayed execution');
+                                  });
+                                  setState(() {
+                                    _loading = false;
+                                    _confirm = true;
+                                  });
+                                },
+                                child: Container(
+                                  child: Center(
+                                      child: _loading
+                                          ? Container(
+                                              child: SpinKitRing(
+                                                color: Colors.white,
+                                                size: 30.0,
+                                              ),
+                                            )
+                                          : Text(
+                                              "Request delivery",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20.0),
+                                            )),
+                                  height: 55.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.greenAccent,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 7,
+                                        blurRadius: 9,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 60.0,
+                              )
+                            ],
+                          ),
                   ),
                 ),
               ],
@@ -192,49 +280,6 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-// AIzaSyDqj76idU0QHy_NqMNeXwCcaDdD-siNYF4   //GOOOGLE MAP API KEY
-
-class ElevatedButton extends StatelessWidget {
-  ElevatedButton({this.label});
-  final String label;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {},
-      child: Container(
-        child: Center(
-            child: Text(
-          label,
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
-        )),
-        height: 45.0,
-        decoration: BoxDecoration(
-          color: Colors.redAccent,
-          borderRadius: BorderRadius.circular(4.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
-              spreadRadius: 7,
-              blurRadius: 9,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-          // gradient: LinearGradient(
-          //     colors: [
-          //       // const Color(0xFF3366FF),
-          //       Colors.red,
-          //       Colors.black,
-          //     ],
-          //     begin: const FractionalOffset(0.0, 0.0),
-          //     end: const FractionalOffset(1.0, 0.0),
-          //     stops: [0.0, 1.0],
-          //     tileMode: TileMode.clamp),
-        ),
       ),
     );
   }

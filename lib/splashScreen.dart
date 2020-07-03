@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children:[
             Expanded(
             child: Container(
-              color: Colors.black,
+              color: Color(0xFF263238),
               child:Column(
                 children:[
                   Expanded(
