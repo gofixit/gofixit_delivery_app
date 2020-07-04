@@ -205,21 +205,24 @@ class _RequestServiceState extends State<RequestService> {
                           ),
                           Text("Add a photo",
                               style: TextStyle(fontWeight: FontWeight.bold)),
-                          GestureDetector(
-                              child: Expanded(
+                          Row(
+                            children: [
+                              GestureDetector(
                                 child: Container(
-                                  color: Colors.grey,
-                                  height: 50.0,
-                                  child: Center(
-                                    child: IconButton(
-                                        icon: Icon(Icons.photo),
-                                        onPressed: null),
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                _showChoiceDialogue(context);
-                              }),
+                                      color: Colors.grey,
+                                      width:50.0,
+                                      height: 50.0,
+                                      child: Center(
+                                        child: IconButton(
+                                            icon: Icon(Icons.photo),
+                                            onPressed: null),
+                                      ),
+                                    ),
+                                  onTap: () {
+                                    _showChoiceDialogue(context);
+                                  }),
+                            ],
+                          ),
                           _decideImageView(),
                           SizedBox(
                             height: 40.0,

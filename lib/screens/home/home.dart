@@ -204,7 +204,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     onTap: () {
                       // Update the state of the app.
                       // Navigator.push(context,MaterialPageRoute(builder: (context)=>HistoryList() ));
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TestPage() ));
+                      // Navigator.push(context,MaterialPageRoute(builder: (context)=>TestPage() ));
 
                       // ...
                     },

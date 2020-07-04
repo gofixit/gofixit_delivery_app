@@ -16,7 +16,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Completer<GoogleMapController> _controller = Completer();
 
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
+  static const LatLng _center = const LatLng(6.5244, 3.3792);
   final Set<Marker> _markers = {};
   LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
